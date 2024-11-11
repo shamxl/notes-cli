@@ -17,11 +17,29 @@ int main (int argc, char* argv[]) {
 
   std::string command = cli.get<std::string>("command");
 
+  if (cli["--new"] == true) {
+    
+    if (cli["--group"] == true) {
+      config.add_group(command);
+    }
+    if (cli["--note"] == true) {
+      config.add_note(command);
+    }
 
-  if (cli["--select"] == true && cli["--group"] == true) {
-    config.Select_Group(command);
-    std::exit(0);
-  }
+  } else if (cli["--select"] == true) {
+
+    if (cli["--note"] == true) {
+      config.select_note(command);
+    }
+    if (cli["--group"] == true) {
+      config.select_group(command);
+    }
+
+  } else if (cli["--group"] == true) {
+      config.getselected_group();
+  } else if (cli["--note"] == true) {
+    std::cout << "No note selected" << std::endl;
+  } else {}
 
 
   return 0;
