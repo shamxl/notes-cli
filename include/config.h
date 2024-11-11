@@ -11,12 +11,12 @@ class Config {
     fs::path configDir;
     fs::path indexFile;
 
-    void Add_Group (std::string name);
-    void Add_Note (std::string name);
-    void Add_Note_InGroup (std::string name, std::string group_name);
-    void Select_Group (std::string name);
-    void Select_Note (std::string name);
-    std::string GetSelected_Group ();
+    void add_group (std::string name);
+    void add_note (std::string name);
+    void add_note_ingroup (std::string name, std::string group_name);
+    void select_group (std::string name);
+    void select_note (std::string name);
+    void getselected_group ();
     std::string GetSelected_Note ();
   private:
     const char* homeDir;
