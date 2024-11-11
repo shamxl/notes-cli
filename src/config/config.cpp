@@ -22,6 +22,7 @@ void Config::init () {
     if (!fs::exists (configDir)) {
       // create .notes dir at home if it doesnt exists
       fs::create_directory(configDir);
+      fs::create_directory((std::string) configDir + "/groups");
     }
 
     if (!fs::exists(indexFile)) {
@@ -46,7 +47,7 @@ void Config::init () {
 }
 
 
-void Config::Add_Group (std::string name) {
+void Config::add_group (std::string name) {
   std::ifstream ifile (indexFile);
   nlohmann::json data = nlohmann::json::parse(ifile);
   
@@ -55,7 +56,11 @@ void Config::Add_Group (std::string name) {
   }
  
   if (!data["groups"].contains(name)) {
-    data["groups"][name] = (std::string) configDir + "/" + name + "/";
+    std::string path = (std::string) configDir + "/" + "groups/" + name + "/";
+    data["groups"][name] = path;
+
+    fs::create_directory(path);
+
   } else {
     std::cout << "Group already exists." << std::endl;
     std::exit (1);
@@ -76,26 +81,27 @@ void Config::Add_Group (std::string name) {
 
 }
 
-void Config::Add_Note (std::string name) {
+void Config::add_note (std::string name) {
 }
 
-void Config::Add_Note_InGroup (std::string name, std::string group_name) {
+void Config::add_note_ingroup (std::string name, std::string group_name) {
 }
 
+void Config::select_note (std::string name) {}
 
-std::string Config::GetSelected_Group () {
+void Config::getselected_group () {
   std::ifstream ifile(indexFile);
   nlohmann::json data = nlohmann::json::parse(ifile);
   if (data.contains("selected_group")) {
-    return data["selected_group"];
+    std::cout << "Selected group: " << data["selected_group"] << std::endl;;
   } else {
-    return nullptr;
+    std::cout << "No group selected";
   }
 
   ifile.close();
 }
 
-void Config::Select_Group (std::string name) {
+void Config::select_group (std::string name) {
 
   std::ifstream ifile (indexFile);
   nlohmann::json data = nlohmann::json::parse(ifile);
