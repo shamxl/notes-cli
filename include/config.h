@@ -9,6 +9,7 @@ class Config {
   public:
     Config();
     fs::path configDir;
+    fs::path groupDir;
     fs::path indexFile;
 
     void add_group (std::string name);

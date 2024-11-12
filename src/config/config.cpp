@@ -17,12 +17,13 @@ void Config::init () {
   if (homeDir != nullptr) {
     configDir = std::string(homeDir) + "/.notes";
     indexFile = (std::string) configDir + "/index.json";
+    groupDir = (std::string) configDir + "/groups";
 
 
     if (!fs::exists (configDir)) {
       // create .notes dir at home if it doesnt exists
       fs::create_directory(configDir);
-      fs::create_directory((std::string) configDir + "/groups");
+      fs::create_directory(groupDir);
     }
 
     if (!fs::exists(indexFile)) {
@@ -56,7 +57,7 @@ void Config::add_group (std::string name) {
   }
  
   if (!data["groups"].contains(name)) {
-    std::string path = (std::string) configDir + "/" + "groups/" + name + "/";
+    std::string path = (std::string) groupDir + "/" + name + "/";
     data["groups"][name] = path;
 
     fs::create_directory(path);
