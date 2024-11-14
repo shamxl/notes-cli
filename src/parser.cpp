@@ -3,24 +3,9 @@
 
 void init_arguments (argparse::ArgumentParser & cli) {
   
-  cli.add_argument ("--new", "-N")
-    .help ("Create a new note/group")
-    .flag ();
-
-  cli.add_argument ("--note", "-n")
-    .flag ();
-
-  cli.add_argument ("--group", "-g")
-    .flag ();
-
-  cli.add_argument ("--select", "-s")
-    .flag ();
-
-  cli.add_argument ("--delete", "-D")
-    .flag ();
-
-
-
-  cli.add_argument ("command");
-
+  cli.add_argument ("--new-note", "-nn");
+  cli.add_argument ("--new-group", "-ng");
+  cli.add_argument ("--select-group", "-sg");
+  cli.add_argument ("--select-note", "-sn");
+  cli.add_argument ("note").remaining();
 }
