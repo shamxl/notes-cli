@@ -11,7 +11,7 @@ Config::Config () {
 void Config::init () {
   homeDir = getenv("HOME");
 
-  if (homeDir != nullptr) {
+  if (homeDir == nullptr) {
     std::cerr << "Could not retrieve `HOME` env variable" << std::endl;
   }
 
@@ -30,7 +30,7 @@ void Config::init () {
     std::ofstream ofile (indexFile);
 
     if (ofile.is_open()) {
-      ofile << "{}";
+      ofile << "{\"groups\": {}}";
     } else {
       std::cerr << "Failed to create `index.json` at " << configDir << std::endl;
     }
