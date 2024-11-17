@@ -20,18 +20,27 @@ int main (int argc, char* argv[]) {
 
   if (auto value = cli.present("-ng")) {
     std::cout << (Helpers::create_group(*value) ? "Group created: " : "Group already exists: ") << *value << std::endl; 
+    if (cli["-s"] == true) {
+      Helpers::select_group(*value);
+    }
   } else if (auto value = cli.present ("-sg")) {
     std::cout << (Helpers::select_group(*value) ? "Selected group: " : "Group doesn't exists: ") << *value << std::endl;
   } else if (auto value = cli.present("-nn")) {
     std::string selected_group = Helpers::get_selected_group();
     if (selected_group.empty()) {
       std::cout << "Select a group first!" << std::endl;
+    } else {
+      
     } 
     
     if (Helpers::create_note(*value, selected_group)) {
       std::cout << "Created note \"" << *value << "\" in group \"" << selected_group << "\"" << std::endl;
     } else {
       std::cout << "Note \"" << *value << "\" already exists in group \"" << selected_group << "\"" << std::endl;
+    }
+
+    if (cli["-s"] == true) {
+      Helpers::select_note(*value, selected_group);
     }
     
   } else if (auto value = cli.present ("-sn")) {
