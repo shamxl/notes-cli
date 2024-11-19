@@ -116,13 +116,22 @@ namespace Helpers {
   }
 
   std::string get_selected_note (std::string group_name) {
-    nlohmann::json cur_group = data["groups"][group_name];
+    nlohmann::json& cur_group = data["groups"][group_name];
     if (!cur_group.contains("selected_note")) {
       return std::string();
     } 
     
     return cur_group["selected_note"];
   }
-}
+
+  std::string get_note_path(std::string group_name, std::string note_name) {
+    nlohmann::json& notes = data["groups"][group_name]["notes"];
+    if (!notes.contains(note_name)) {
+      return std::string();
+    } 
+
+    return notes[note_name];
+  }
+} 
 
 
