@@ -18,5 +18,9 @@ void init_arguments (argparse::ArgumentParser & cli) {
   cli.add_argument("--delete", "-d")
     .flag();
 
+  cli.add_argument("--print", "-p")
+    .help ("Print the selected note")
+    .flag();
+
   cli.add_argument ("notes").remaining();
 }

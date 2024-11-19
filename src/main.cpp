@@ -1,5 +1,7 @@
+#include <fstream>
 #include <iostream>
 #include <argparse/argparse.hpp>
+#include <string>
 #include "parser.h"
 #include "helpers.h"
 
@@ -51,6 +53,31 @@ int main (int argc, char* argv[]) {
     }
     bool select_status = Helpers::select_note(*value, selected_group);
     std::cout << (select_status ? "Selected note: " : "Note doesn't exists: ") << *value << std::endl;
+  } else if (cli["-p"] == true) {
+    std::string selected_group = Helpers::get_selected_group();
+    if (selected_group.empty()) {
+      std::cout << "Select a group first!" << std::endl;
+      std::exit(1);
+    }
+    
+    std::string selected_note = Helpers::get_selected_note(selected_group);
+
+    if (selected_note.empty()) {
+      std::cout << "Select a note first!" << std::endl;
+      std::exit(1);
+    }
+
+    std::string path = Helpers::get_note_path(selected_group, selected_note);
+    
+    std::ifstream ifile(path);
+    std::string line;
+
+    while (std::getline(ifile, line)) {
+      std::cout << line << std::endl;
+    }
+
+    ifile.close();
+
   } else {
     try {
       auto notes = cli.get<std::vector<std::string>>("notes");
