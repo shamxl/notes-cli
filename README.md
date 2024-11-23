@@ -33,9 +33,6 @@
 | `-dn, --delete-note VAR`  | Deletes the specified note from the selected group.                      |
 | `-p, --print`          | Prints the content of the selected note.                                   |
 
-### Positional Arguments
-- **`notes`**: Accepts multiple note names or paths to notes for certain operations.
-
 ## Example Workflow
 
 1. **Create a Group**:
