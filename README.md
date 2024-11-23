@@ -67,6 +67,10 @@
    ```bash
    ./notes --delete-group "Work"
    ```
+9. **Write to a Note**:
+    ```bash
+    ./notes hello, world!
+    ```
 
 ## Build Instructions
 
