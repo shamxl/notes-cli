@@ -15,12 +15,16 @@ void init_arguments (argparse::ArgumentParser & cli) {
     .help ("List notes inside a group.")
     .flag();
 
-  cli.add_argument("--delete", "-d")
-    .flag();
+  cli.add_argument("--delete-group", "-dg")
+    .help ("Deletes the specified group");
+
+  cli.add_argument("--delete-note", "-dn")
+    .help ("Deletes the specified note from the selected group");
 
   cli.add_argument("--print", "-p")
     .help ("Print the selected note")
     .flag();
 
-  cli.add_argument ("notes").remaining();
+  cli.add_argument ("notes")
+    .remaining();
 }

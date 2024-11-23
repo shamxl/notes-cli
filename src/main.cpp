@@ -1,3 +1,4 @@
+#include <exception>
 #include <fstream>
 #include <iostream>
 #include <argparse/argparse.hpp>
@@ -78,6 +79,24 @@ int main (int argc, char* argv[]) {
 
     ifile.close();
 
+  } else if (auto value = cli.present("-dg")) {
+    if (Helpers::delete_group(*value)) {
+      std::cout << "Deleted group: " << *value << std::endl;
+    } else {
+      std::cout << "Group doesn't exists: " << *value << std::endl;
+    }
+  } else if (auto value = cli.present ("-dn")) {
+    std::string selected_group = Helpers::get_selected_group();
+    if (selected_group.empty()) {
+      std::cout << "Select a group first!" << std::endl;
+      std::exit (1);
+    }
+
+    if (Helpers::delete_note(selected_group, *value)) {
+      std::cout << "Deleted note \"" << *value << "\" from group \"" << selected_group << "\"" << std::endl;
+    } else {
+      std::cout << "Note \"" << *value << "\" " << "doesn't exists in group \"" << selected_group << "\"" << std::endl;
+    }
   } else {
     try {
       auto notes = cli.get<std::vector<std::string>>("notes");
@@ -101,8 +120,8 @@ int main (int argc, char* argv[]) {
         std::cout << "  note: " << selected_note << std::endl;
         std::cout << "  group: " << selected_group << std::endl;
       }
-    } catch (nlohmann::json::exception& _e) {
-      cli.help();
+    } catch (const std::exception& _e) {
+      std::cout << cli;
     }
   }
 
