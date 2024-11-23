@@ -132,6 +132,38 @@ namespace Helpers {
 
     return notes[note_name];
   }
+
+  bool delete_group(std::string name) {
+    
+    nlohmann::json& group = data["groups"];
+    if (!group.contains(name)) {
+      return false;
+    } 
+    
+    nlohmann::json& cur_group = data[name];
+    fs::remove_all (cur_group["path"]);
+    data["groups"].erase (name);
+    save_config ();
+    return true;
+  }
+
+  bool delete_note(std::string group_name, std::string note_name) {
+    nlohmann::json& group = data["groups"];
+    if (!group.contains(group_name)) {
+      return false;
+    }
+
+    nlohmann::json& notes = group["notes"];
+    if (!notes.contains(note_name)) {
+      return false;
+    }
+
+    notes.erase(note_name);
+    std::string note_path = get_note_path(group_name, note_name);
+    fs::remove (note_path);
+    save_config();
+    return true;
+  }
 } 
 
 

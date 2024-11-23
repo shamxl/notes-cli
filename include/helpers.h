@@ -12,7 +12,10 @@ namespace  Helpers {
   bool write_to_note (std::string name, std::string group_name, std::vector<std::string> &notes);
   std::string get_selected_group ();
   std::string get_selected_note (std::string group_name);
+  
   std::string get_note_path (std::string group_name, std::string note_name);
+  bool delete_group (std::string name);
+  bool delete_note (std::string group_name, std::string note_name);
 }
 
 #endif
