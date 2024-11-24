@@ -7,7 +7,7 @@
 #include "helpers.h"
 
 int main (int argc, char* argv[]) {
-  argparse::ArgumentParser cli ("Notes");
+  argparse::ArgumentParser cli ("Notes", "1.0.1");
   init_arguments (cli);
 
   try {

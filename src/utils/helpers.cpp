@@ -143,6 +143,9 @@ namespace Helpers {
     nlohmann::json& cur_group = groups[name];
     fs::remove_all (cur_group["path"]);
     groups.erase (name);
+    if (get_selected_group() == name) {
+      data["selected_group"] = "";
+    }
     save_config ();
     return true;
   }
