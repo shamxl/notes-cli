@@ -78,7 +78,7 @@ To build the program from source, follow these steps:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/<your-username>/notes-cli.git
+   git clone https://github.com/shamxl/notes-cli.git
    cd notes-cli
    ```
 
